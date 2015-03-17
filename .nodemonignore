@@ -1,0 +1,6 @@
+tmp/*
+dist/*
+server/views/*
+log/*
+.git/*
+test/*
