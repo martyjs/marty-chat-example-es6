@@ -21,7 +21,7 @@ class MessagesStore extends Marty.Store {
         return this.state[roomId];
       },
       remotely() {
-        return MessageQueries.for(this).getMessagesForRoom(roomId);
+        return this.app.messageQueries.getMessagesForRoom(roomId);
       }
     });
   }
@@ -60,4 +60,4 @@ class MessagesStore extends Marty.Store {
   }
 }
 
-module.exports = Marty.register(MessagesStore);
+module.exports = MessagesStore;

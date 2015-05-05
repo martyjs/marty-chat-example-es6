@@ -1,5 +1,6 @@
-var React = require('react');
 var _ = require('lodash');
+var React = require('react');
+var Marty = require('marty');
 var MessageActionCreators = require('../actions/messageActionCreators');
 
 class NewMessage extends React.Component {
@@ -36,15 +37,15 @@ class NewMessage extends React.Component {
     });
   }
   sendMessage() {
-    MessageActionCreators.for(this).sendMessage(
+    this.context.app.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );
-    this.setState({
-      text: ''
-    });
+    this.setState(this.getInitialState());
     return false;
   }
 }
+
+NewMessage.contextTypes = Marty.contextTypes;
 
 module.exports = NewMessage;

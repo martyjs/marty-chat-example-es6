@@ -1,6 +1,5 @@
 var Marty = require('marty');
 var MessageUtils = require('../utils/messageUtils');
-var MessagesAPI = require('../sources/messagesAPI');
 var MessageConstants = require('../constants/messageConstants');
 
 class MessageActionCreators extends Marty.ActionCreators {
@@ -9,7 +8,7 @@ class MessageActionCreators extends Marty.ActionCreators {
 
     this.dispatch(MessageConstants.RECIEVE_MESSAGES, roomId, message);
 
-    MessagesAPI.createMessage(message).then(res => {
+    this.app.messagesAPI.createMessage(message).then(res => {
       this.dispatch(MessageConstants.UPDATE_MESSAGE, message.cid, res.body);
     });
   }
@@ -18,4 +17,4 @@ class MessageActionCreators extends Marty.ActionCreators {
   }
 }
 
-module.exports = Marty.register(MessageActionCreators);
+module.exports = MessageActionCreators;

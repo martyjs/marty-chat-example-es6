@@ -6,15 +6,15 @@ var RoomConstants = require('../constants/roomConstants');
 
 class RoomQueries extends Marty.Queries {
   getAllRooms() {
-    return RoomsAPI.for(this).getAllRooms().then(res => {
+    return this.app.roomsAPI.getAllRooms().then(res => {
       return this.dispatch(RoomConstants.RECIEVE_ROOMS, res.body);
     });
   }
   getRoom(id) {
-    return RoomsAPI.for(this).getRoom(id).then(res => {
+    return this.app.roomsAPI.getRoom(id).then(res => {
       this.dispatch(RoomConstants.RECIEVE_ROOMS, res.body);
     });
   }
 }
 
-module.exports = Marty.register(RoomQueries);
+module.exports = RoomQueries;

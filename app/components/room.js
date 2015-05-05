@@ -33,13 +33,13 @@ class Room extends React.Component {
 }
 
 module.exports = Marty.createContainer(Room, {
-  listenTo: [RoomsStore, MessagesStore],
+  listenTo: ['roomsStore', 'messagesStore'],
   fetch: {
     room() {
-      return RoomsStore.for(this).getRoom(this.props.id)
+      return this.app.roomsStore.getRoom(this.props.id)
     },
     messages() {
-      return MessagesStore.for(this).getMessagesForRoom(this.props.id)
+      return this.app.messagesStore.getMessagesForRoom(this.props.id)
     }
   },
   pending() {

@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var React = require('react');
+var Marty = require('marty');
 var RoomActionCreators = require('../actions/roomActionCreators');
 
 class NewRoom extends React.Component {
@@ -49,12 +50,14 @@ class NewRoom extends React.Component {
     e.preventDefault();
 
     if (this.state.name.trim() !== "") {
-      RoomActionCreators.for(this).createRoom(this.state.name);
+      this.context.app.roomActionCreators.createRoom(this.state.name);
       this.setState({
         name: ''
       });
     }
   }
 }
+
+NewRoom.contextTypes = Marty.contextTypes;
 
 module.exports = NewRoom;

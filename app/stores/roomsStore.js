@@ -22,7 +22,7 @@ class RoomStore extends Marty.Store {
         }
       },
       remotely() {
-        return RoomQueries.for(this).getAllRooms();
+        return this.app.roomQueries.getAllRooms();
       }
     });
   }
@@ -66,4 +66,4 @@ class RoomStore extends Marty.Store {
   }
 }
 
-module.exports = Marty.register(RoomStore);
+module.exports = RoomStore;

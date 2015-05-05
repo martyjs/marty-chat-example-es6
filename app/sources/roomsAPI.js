@@ -16,4 +16,4 @@ class RoomHttpAPI extends Marty.HttpStateSource {
   }
 }
 
-module.exports = Marty.register(RoomHttpAPI);
+module.exports = RoomHttpAPI;

@@ -6,6 +6,10 @@ var RoomsStore = require('../stores/roomsStore');
 var NavigationActionCreators = require('../actions/navigationActionCreators');
 
 class Home extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.navigateToRoom = _.bind(this.navigateToRoom, this);
+  }
   render() {
     return (
       <div className="home">
@@ -26,17 +30,17 @@ class Home extends React.Component {
     );
   }
   navigateToRoom(roomId) {
-    NavigationActionCreators.for(this).navigateToRoom(roomId);
+    this.context.app.navigationActionCreators.navigateToRoom(roomId);
   }
 }
 
-
+Home.contextTypes = Marty.contextTypes;
 
 module.exports = Marty.createContainer(Home, {
-  listenTo: RoomsStore,
+  listenTo: 'roomsStore',
   fetch: {
     rooms() {
-      return RoomsStore.for(this).getAll();
+      return this.app.roomsStore.getAll();
     }
   },
   pending() {

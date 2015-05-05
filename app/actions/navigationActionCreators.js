@@ -14,4 +14,4 @@ function navigateTo(route, params) {
   require('../router').transitionTo(route, params || {});
 }
 
-module.exports = Marty.register(NavigationActionCreators);
+module.exports = NavigationActionCreators;
