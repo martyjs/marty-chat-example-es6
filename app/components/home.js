@@ -30,11 +30,9 @@ class Home extends React.Component {
     );
   }
   navigateToRoom(roomId) {
-    this.context.app.navigationActionCreators.navigateToRoom(roomId);
+    this.app.navigationActionCreators.navigateToRoom(roomId);
   }
 }
-
-Home.contextTypes = Marty.contextTypes;
 
 module.exports = Marty.createContainer(Home, {
   listenTo: 'roomsStore',

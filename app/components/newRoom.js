@@ -50,7 +50,7 @@ class NewRoom extends React.Component {
     e.preventDefault();
 
     if (this.state.name.trim() !== "") {
-      this.context.app.roomActionCreators.createRoom(this.state.name);
+      this.app.roomActionCreators.createRoom(this.state.name);
       this.setState({
         name: ''
       });
@@ -58,6 +58,4 @@ class NewRoom extends React.Component {
   }
 }
 
-NewRoom.contextTypes = Marty.contextTypes;
-
-module.exports = NewRoom;
+module.exports = Marty.createContainer(NewRoom);

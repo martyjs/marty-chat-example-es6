@@ -8,6 +8,7 @@ class Application extends Marty.Application {
     this.register(require('./actions'));
     this.register(require('./queries'));
     this.register(require('./sources'));
+    this.router = require('./router');
   }
 }
 

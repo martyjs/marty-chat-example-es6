@@ -37,15 +37,15 @@ class NewMessage extends React.Component {
     });
   }
   sendMessage() {
-    this.context.app.messageActionCreators.sendMessage(
+    this.app.messageActionCreators.sendMessage(
       this.state.text,
       this.props.roomId
     );
-    this.setState(this.getInitialState());
+    this.setState({
+      text: ''
+    });
     return false;
   }
 }
 
-NewMessage.contextTypes = Marty.contextTypes;
-
-module.exports = NewMessage;
+module.exports = Marty.createContainer(NewMessage);
