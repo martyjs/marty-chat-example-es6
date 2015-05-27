@@ -13,13 +13,13 @@ var ServerUpdatesSocket = Marty.createStateSource({
     'room:created': 'onRoomCreated'
   },
   onMessage(message) {
-    if (!MessagesStore.getMessage(message.id, message.roomId)) {
-      MessageActionCreators.recieveMessages(message.roomId, [message]);
+    if (!this.app.messagesStore.getMessage(message.id, message.roomId)) {
+      this.app.messageActionCreators.recieveMessages(message.roomId, [message]);
     }
   },
   onRoomCreated(room) {
-    if (!RoomsStore.roomExists(room.id)) {
-      RoomActionCreators.recieveRooms([room]);
+    if (!this.app.roomsStore.roomExists(room.id)) {
+      this.app.roomActionCreators.recieveRooms([room]);
     }
   }
 });

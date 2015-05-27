@@ -14,4 +14,4 @@ class MessageHttpAPI extends Marty.HttpStateSource {
   }
 }
 
-module.exports = Marty.register(MessageHttpAPI);
+module.exports = MessageHttpAPI;

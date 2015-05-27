@@ -1,6 +1,5 @@
 var Marty = require('marty');
 var RoomUtils = require('../utils/roomUtils');
-var RoomsAPI = require('../sources/roomsAPI')
 var RoomConstants = require('../constants/roomConstants');
 var NavigationActionCreators = require('./navigationActionCreators');
 
@@ -10,7 +9,7 @@ class RoomActionCreators extends Marty.ActionCreators {
 
     this.dispatch(RoomConstants.RECIEVE_ROOMS, room);
 
-    RoomsAPI.createRoom(room).then(res => {
+    this.app.roomsAPI.createRoom(room).then(res => {
       this.dispatch(RoomConstants.UPDATE_ROOM, room.cid, res.body);
     });
   }
@@ -19,4 +18,4 @@ class RoomActionCreators extends Marty.ActionCreators {
   }
 }
 
-module.exports = Marty.register(RoomActionCreators);
+module.exports = RoomActionCreators;
