@@ -4,7 +4,9 @@ var format = require('util').format;
 
 class MessageHttpAPI extends Marty.HttpStateSource {
   getMessagesForRoom(roomId) {
-    return this.get(format('/api/rooms/%s/messages', roomId));
+    return this.get(format('/api/rooms/%s/messages', roomId)).then(function (res) {
+      return res.json();
+    });
   }
   createMessage(message) {
     return this.post({

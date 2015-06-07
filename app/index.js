@@ -6,6 +6,8 @@ var ApplicationContainer = Marty.ApplicationContainer;
 window.React = React; // For React Developer Tools
 window.Marty = Marty; // For Marty Developer Tools
 
+Marty.HttpStateSource.removeHook('parseJSON');
+
 if (process.env.NODE_ENV !== 'test') {
   var app = new Application();
 

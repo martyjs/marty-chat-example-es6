@@ -3,10 +3,14 @@ var Marty = require('marty');
 
 class RoomHttpAPI extends Marty.HttpStateSource {
   getAllRooms() {
-    return this.get('/api/rooms');
+    return this.get('/api/rooms').then(function (res) {
+      return res.json();
+    });
   }
   getRoom(id) {
-    return this.get('/api/rooms/' + id);
+    return this.get('/api/rooms/' + id).then(function (res) {
+      return res.json();
+    });
   }
   createRoom(room) {
     return this.post({
