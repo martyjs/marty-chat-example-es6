@@ -16,6 +16,20 @@ var port = process.env.PORT || 5000;
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var memwatch = require('memwatch-next');
+
+memwatch.on('leak', function(info) {
+ console.error('Memory leak detected: ', info);
+});
+
+memwatch.on('stats', function(d) {
+  console.log("postgc:", d.current_base);
+});
+
+setInterval(function() {
+  console.log("Memory usage", process.memoryUsage().heapUsed);
+}, 5000);
+
 require('marty').HttpStateSource.removeHook('parseJSON');
 
 console.log('Running server http://localhost:' + port);
@@ -25,31 +39,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 5000);
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(require('marty-express')({
   routes: require('../routes'),
-  application: require('../application'),
-  rendered: function (result) {
-    console.log('Rendered ' + result.req.url);
-
-    var table = new Table({
-      colWidths: [30, 30, 30, 30, 40],
-      head: ['Store Id', 'Fetch Id', 'Status', 'Time', 'Result']
-    });
-
-    _.each(result.diagnostics, function (diagnostic) {
-      table.push([
-        diagnostic.storeId,
-        diagnostic.fetchId,
-        diagnostic.status,
-        diagnostic.time,
-        JSON.stringify(diagnostic.result || diagnostic.error || {}, null, 2)
-      ]);
-    });
-
-    console.log(table.toString());
-  }
+  application: require('../application')
 }));
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
