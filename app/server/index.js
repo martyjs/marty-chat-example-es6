@@ -16,19 +16,26 @@ var port = process.env.PORT || 5000;
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var heapdump = require('heapdump');
 var memwatch = require('memwatch-next');
 
 memwatch.on('leak', function(info) {
- console.error('Memory leak detected: ', info);
+  console.error('leak detected', info);
+
+  var file = '~/tmp/marty-' + process.pid + '-' + Date.now() + '.heapsnapshot';
+
+  heapdump.writeSnapshot(file, function (err) {
+    if (err) {
+      console.error('failed to write snapshot', err);
+    } else {
+      console.error('snapshot written:', file);
+    }
+  });
 });
 
 memwatch.on('stats', function(d) {
-  console.log("postgc:", d.current_base);
+  console.log("current base:", d.current_base, "; estimated_base:", d.estimated_base, "; usage_trend:", d.usage_trend);
 });
-
-setInterval(function() {
-  console.log("Memory usage", process.memoryUsage().heapUsed);
-}, 5000);
 
 require('marty').HttpStateSource.removeHook('parseJSON');
 
